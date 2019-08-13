@@ -1,22 +1,33 @@
-import React from 'react';
+import React from "react";
+import PropTypes from "prop-types";
 
-function Food(props){
+class App extends React.Component {
+  state = {
+    count: 0,
+    isLoading: true
+  };
 
-  return (
-    <h3>I Like {props.favorite}</h3>
-  );
-
-}
-
-function App() {
-  return (
-    <div >
-      <h1>Hello!!</h1>   
-      <Food favorite = "kimchi"/>   
-      <Food favorite = "chicken"/>
-      <Food favorite = "buger"/>
-    </div>    
-  );
+  plus = () => {
+    this.setState(current => ({ count: current.count + 1 }));
+  };
+  minus = () => {
+    this.setState(current => ({ count: current.count - 1 }));
+  };
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({ isLoading: false });
+    }, 5000);
+  }
+  render() {
+    return (
+      <div>
+        {this.state.isLoading ? "Loading..." : "Go"}
+        <h1>The number : {this.state.count}</h1>{" "}
+        <button onClick={this.plus}>Plus</button>{" "}
+        <button onClick={this.minus}>Minus</button>
+      </div>
+    );
+  }
 }
 
 export default App;
